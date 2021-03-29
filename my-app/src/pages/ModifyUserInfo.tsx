@@ -1,15 +1,15 @@
-import axios from 'axios';
-import React, { ChangeEvent, useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
-import profile from '../img/profileImg.png';
-import { RootState } from '../modules';
+import axios from "axios";
+import React, { ChangeEvent, useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
+import profile from "../img/profileImg.png";
+import { RootState } from "../modules";
 import {
   deleteMyInfoThunk,
   updateMyInfoPayloadType,
   updateMyInfoThunk,
-} from '../modules/myInfo';
-import '../scss/ModifyUserInfo.scss';
+} from "../modules/myInfo";
+import "../scss/ModifyUserInfo.scss";
 
 function ModifyUserInfo() {
   const history = useHistory();
@@ -25,8 +25,8 @@ function ModifyUserInfo() {
   } = useSelector((state: RootState) => state.myInfo);
 
   const [diffNickname, setDiffNickname] = useState(nickname);
-  const [password, setPassword] = useState('');
-  const [confirmPw, setConfirmPw] = useState('');
+  const [password, setPassword] = useState("");
+  const [confirmPw, setConfirmPw] = useState("");
   const [description, setDescription] = useState(introduction);
   const [isValidPw, setIsValidPw] = useState(true);
   const [isMatchPw, setIsMatchPw] = useState(true);
@@ -54,13 +54,11 @@ function ModifyUserInfo() {
   }, [password, confirmPw]);
 
   useEffect(() => {
-    console.log('status change');
-
     if (isModify) {
-      if (status === 'failed') {
+      if (status === "failed") {
         setIsValidNickname(false);
-      } else if (status === 'idle') {
-        history.push('/mypage');
+      } else if (checkModified()) {
+        history.push("/mypage");
       }
     }
   }, [status]);
@@ -87,7 +85,7 @@ function ModifyUserInfo() {
   //비밀번호 유효성 검사
   const handlePW = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
-    if (e.target.value === '') {
+    if (e.target.value === "") {
       setIsValidPw(true);
     } else {
       const regExp = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[~!@#$%^&*()_+|<>?:{}]).*$/;
@@ -113,10 +111,10 @@ function ModifyUserInfo() {
     console.log(fileList);
 
     reader.onloadend = () => {
-      console.log('onloaded');
+      console.log("onloaded");
 
       if (!fileList) {
-        console.log('!fileList');
+        console.log("!fileList");
         return;
       }
       setImgFile(fileList[0]);
@@ -133,14 +131,14 @@ function ModifyUserInfo() {
   };
 
   const deleteAccount = async () => {
-    const isDelete = confirm('정말로 탈퇴하시겠습니까?');
+    const isDelete = confirm("정말로 탈퇴하시겠습니까?");
     if (isDelete) {
       const payload = {
         myId,
       };
       try {
         dispatch(deleteMyInfoThunk(payload));
-        history.push('/');
+        history.push("/");
       } catch (e) {
         console.log(e.response);
       }
@@ -163,12 +161,12 @@ function ModifyUserInfo() {
   const canPasswordSave = [isValidPw, isMatchPw, password].every(Boolean);
 
   const confirmModified = async () => {
-    let profileUrl = '';
+    let profileUrl = "";
     if (imgFile) {
       const formData = new FormData();
-      formData.append('image', imgFile);
+      formData.append("image", imgFile);
 
-      const res = await axios.post('/image', formData, {
+      const res = await axios.post("/image", formData, {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
       profileUrl = res.data.data.profileUrl;
@@ -187,15 +185,11 @@ function ModifyUserInfo() {
     if (profileUrl) {
       payload.profileUrl = profileUrl;
     }
-    if (previewURL === profile) {
-      payload.profileUrl = null;
-    }
-
-    console.log(payload);
-
     dispatch(updateMyInfoThunk(payload));
     setIsModify(true);
   };
+
+  const isNotSocial = (id: string) => id.match(/[^0-9]/);
 
   return (
     <section className="modify-user">
@@ -222,8 +216,8 @@ function ModifyUserInfo() {
                       className="table__td-cell__img"
                       src={
                         // src 타입이 맞지 않아서 임시 수정 했습니다.
-                        typeof previewURL === 'string' ? previewURL : profile
-                        // typeof previewURL === 'string' ? previewURL : ''
+                        typeof previewURL === "string" ? previewURL : profile
+                        // typeof previewURL === "string" ? previewURL : ""
                       }
                       alt="profile image"
                     />
@@ -255,8 +249,8 @@ function ModifyUserInfo() {
                   <input
                     className={
                       isValidNickname
-                        ? 'table__td-cell__nickname'
-                        : 'table__td-cell__nickname error'
+                        ? "table__td-cell__nickname"
+                        : "table__td-cell__nickname error"
                     }
                     type="text"
                     onChange={handleNickname}
@@ -265,65 +259,67 @@ function ModifyUserInfo() {
                   <div
                     className={
                       isValidNickname
-                        ? 'table__td-cell__caution'
-                        : 'table__td-cell__caution error'
+                        ? "table__td-cell__caution"
+                        : "table__td-cell__caution error"
                     }
                   >
-                    {isValidNickname ? null : '닉네임이 중복됩니다.'}
+                    {isValidNickname ? null : "닉네임이 중복됩니다."}
                   </div>
                 </div>
               </td>
             </tr>
-            <tr className="table__pw">
-              <th className="table__th">
-                <div className="table__th-cell text">비밀번호 변경</div>
-              </th>
-              <td className="table__td">
-                <div className="table__td-cell">
-                  <input
-                    className={
-                      isValidPw
-                        ? 'table__td-cell__pw'
-                        : 'table__td-cell__pw error'
-                    }
-                    type="password"
-                    placeholder={'비밀번호를 입력해주세요'}
-                    onChange={handlePW}
-                  />
-                  <div
-                    className={
-                      isValidPw
-                        ? 'table__td-cell__caution'
-                        : 'table__td-cell__caution error'
-                    }
-                  >
-                    8-15자리의 영문/숫자/특수문자를 함께 입력해주세요.
+            {isNotSocial(myId) ? (
+              <tr className="table__pw">
+                <th className="table__th">
+                  <div className="table__th-cell text">비밀번호 변경</div>
+                </th>
+                <td className="table__td">
+                  <div className="table__td-cell">
+                    <input
+                      className={
+                        isValidPw
+                          ? "table__td-cell__pw"
+                          : "table__td-cell__pw error"
+                      }
+                      type="password"
+                      placeholder={"비밀번호를 입력해주세요"}
+                      onChange={handlePW}
+                    />
+                    <div
+                      className={
+                        isValidPw
+                          ? "table__td-cell__caution"
+                          : "table__td-cell__caution error"
+                      }
+                    >
+                      8-15자리의 영문/숫자/특수문자를 함께 입력해주세요.
+                    </div>
+                    <input
+                      className={
+                        isMatchPw
+                          ? "table__td-cell__pw-confirm"
+                          : "table__td-cell__pw-confirm error"
+                      }
+                      type="password"
+                      placeholder={"입력하신 비밀번호를 다시 한번 입력해주세요"}
+                      onChange={isPwMatches}
+                    />
+                    <div
+                      className={
+                        isMatchPw
+                          ? "table__td-cell__caution"
+                          : "table__td-cell__caution error"
+                      }
+                      // ref={errorRef}
+                    >
+                      {isMatchPw
+                        ? null
+                        : "입력하신 비밀번호가 일치하지 않습니다. 다시 확인해 주세요."}
+                    </div>
                   </div>
-                  <input
-                    className={
-                      isMatchPw
-                        ? 'table__td-cell__pw-confirm'
-                        : 'table__td-cell__pw-confirm error'
-                    }
-                    type="password"
-                    placeholder={'입력하신 비밀번호를 다시 한번 입력해주세요'}
-                    onChange={isPwMatches}
-                  />
-                  <div
-                    className={
-                      isMatchPw
-                        ? 'table__td-cell__caution'
-                        : 'table__td-cell__caution error'
-                    }
-                    // ref={errorRef}
-                  >
-                    {isMatchPw
-                      ? null
-                      : '입력하신 비밀번호가 일치하지 않습니다. 다시 확인해 주세요.'}
-                  </div>
-                </div>
-              </td>
-            </tr>
+                </td>
+              </tr>
+            ) : null}
             <tr className="table__introduction">
               <th className="table__th">
                 <div className="table__th-cell">자기 소개</div>
@@ -336,7 +332,7 @@ function ModifyUserInfo() {
                     cols={30}
                     rows={10}
                     onChange={handleIntroduction}
-                    value={description ? description : ''}
+                    value={description ? description : ""}
                   >
                     {/* {description} */}
                   </textarea>
@@ -350,7 +346,7 @@ function ModifyUserInfo() {
             넷프리뷰를 더 이상 이용하지 않는다면?
           </span>
           <span className="delete__account-btn" onClick={deleteAccount}>
-            회원탈퇴 바로가기 {'>>'}
+            회원탈퇴 바로가기 {">>"}
           </span>
         </div>
         <div className="btn-wrap">
