@@ -1,12 +1,12 @@
 .slide-container {
-  width: 1280px;
+  width: 128rem;
   margin: 0 auto;
 }
 
 .swiper-button {
   &-wrap {
-    width: 1280px;
-    height: 300px;
+    width: 128rem;
+    height: 30rem;
     margin: 0 auto;
     position: absolute;
   }
@@ -14,10 +14,10 @@
   &-prev {
     // width: 35px;
     // height: 23px;
-    left: 100px;
+    left: 10rem;
     // right: 960px;
     top: auto;
-    bottom: 20px;
+    bottom: 2rem;
     // margin-top: 0;
     // z-index: 40;
 
@@ -28,9 +28,9 @@
   &-next {
     // width: 35px;
     // height: 23px;
-    right: 100px;
+    right: 10rem;
     top: auto;
-    bottom: 20px;
+    bottom: 2rem;
     // z-index: 40;
 
     //background: url(../img/btn-next.svg) no-repeat;
@@ -49,7 +49,7 @@
 .swiper-button-prev::after {
   //display: none;
   background: url(../img/btn-prev.svg) no-repeat;
-  background-size: 23px 23px;
+  background-size: 2.3rem 2.3rem;
   color: transparent;
 }
 .swiper-button-next::after {
@@ -57,7 +57,7 @@
   // color: var(--color-white);
   color: transparent;
   background: url(../img/btn-next.svg) no-repeat;
-  background-size: 23px 23px;
+  background-size: 2.3rem 2.3rem;
   // display: none;
   // color: var(--color-white);
   // box-shadow: 0px 0px 1px 0.5px rgba(0, 0, 0, 0.08);
@@ -66,7 +66,7 @@
 .swiper-pagination {
   &-bullet {
     background: transparent !important;
-    border: 1px solid var(--color-white) !important;
+    border: 0.1rem solid var(--color-white) !important;
     box-sizing: border-box !important;
     opacity: 1;
     &.swiper-pagination-bullet-active {
@@ -80,15 +80,15 @@
 .swiper-container {
   &-horizontal {
     .swiper-pagination-bullets {
-      width: 1280px;
+      width: 128rem;
       margin: 0 auto;
       left: 50%;
-      bottom: 27px;
+      bottom: 2.7rem;
       transform: translateX(-50%);
       display: inline-block;
       align-content: flex-start;
       .swiper-pagination-bullet {
-        margin: 6px;
+        margin: 0.6rem;
       }
     }
   }
@@ -96,7 +96,7 @@
 
 .banner {
   width: 100vw;
-  height: 555px;
+  height: 55.5rem;
 
   background-color: #ccc;
   background-repeat: no-repeat;
@@ -112,24 +112,24 @@
     );
   }
   &__container {
-    width: 1280px;
+    width: 128rem;
     height: 100%;
     margin: 0 auto;
     overflow: hidden;
 
     // border: 2px solid red;
     article {
-      width: 450px;
+      width: 45rem;
       height: 100%;
-      padding-top: 120px;
+      padding-top: 12rem;
       color: var(--color-white);
       button {
-        width: 130px;
-        height: 36px;
+        width: 13rem;
+        height: 3.6rem;
         // margin-bottom: 80px;
-        margin-top: 20px;
+        margin-top: 2rem;
         color: var(--color-white);
-        border-radius: 5px;
+        border-radius: 0.5rem;
         background-color: var(--color-netflix);
         cursor: pointer;
       }
@@ -138,15 +138,15 @@
       text-align: center;
       article {
         width: 100%;
-        padding-top: 160px;
+        padding-top: 16rem;
       }
     }
   }
   &__subtitle {
-    font-size: 18px;
+    font-size: 1.8rem;
     &.banner3 {
       font: {
-        size: 20px;
+        size: 2rem;
         weight: var(--weight-medium);
       }
     }
@@ -157,14 +157,14 @@
       size: var(--font-title);
       weight: var(--weight-bold);
     }
-    line-height: 60px;
+    line-height: 6rem;
     &.banner3 {
-      font-size: 180px;
-      line-height: 160px;
+      font-size: 18rem;
+      line-height: 16rem;
     }
   }
   &__year {
-    margin-top: 10px;
+    margin-top: 1rem;
     font: {
       family: var(--font-eng);
       weight: var(--weight-medium);
@@ -172,9 +172,9 @@
     }
   }
   &__synopsis {
-    width: 400px;
-    margin-top: 45px;
-    line-height: 25px;
+    width: 40rem;
+    margin-top: 4.5rem;
+    line-height: 2.5rem;
     word-break: keep-all;
     &.banner3 {
       width: 100%;
