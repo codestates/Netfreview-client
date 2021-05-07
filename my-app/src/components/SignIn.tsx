@@ -139,7 +139,7 @@ function SignIn({ closeModal }: isModalprops) {
                 <li className="login-social__wrap">
                   <ul className="loginsocial__wrap">
                     <a
-                      href="https://www.gettoday4.click/users/google"
+                      href="https://server.netfreview.com/users/google"
                       className="google"
                     >
                       <div className="googlelogo">{/* {google} */}</div>
